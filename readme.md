@@ -21,6 +21,8 @@ So, what about days? Well, really, there isn't any large significant differences
 
 <img src="HPA_Analysis_Markdown_files/figure-markdown_github/unnamed-chunk-11-1.png" width="750px" />
 
+Facebook Report - Just 2016
+===============
 So, maybe we should recognize the difference in popularity in the HPA. There's definitely a different population of people that engage compared to the past. So, what if we just look at 2016. Do we see differences from above?
 
 For one, I removed the two posts that dealt with the deaths of Alan Rickman and David Bowie, as they were huge outliers in the data of 2016. (But, good to know, deaths do seem to really bring out our fans... sad.)
