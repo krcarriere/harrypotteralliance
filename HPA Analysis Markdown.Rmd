@@ -1,0 +1,309 @@
+---
+title: "The Harry Potter Alliance Facebook Analysis"
+author: "Kevin R. Carriere"
+date: "3/22/2017"
+output: html_document
+
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, out.width = '750px', dpi=200)
+```
+
+```{r, echo=FALSE, include=FALSE}
+setwd("~/Desktop")
+HPA <- read.csv("facebook_hpa.csv")
+source("~/Documents/harrypotteralliance/hpa_functions.R")
+#install.packages("Rfacebook")
+#install.packages("devtools")
+#install.packages("ggplot2")
+#install.packages("plyr")
+#install.packages("RColorBrewer")
+#install.packages("wesanderson")
+library(Rfacebook)
+library(devtools)
+library(cowplot)
+library(ggplot2)
+library(plyr)
+library(RColorBrewer)
+library(wesanderson)
+library(scales)
+wp1<- wes_palette("GrandBudapest",3)
+wp3 <-wesanderson::wes_palette("Moonrise1", 3, type="continuous")
+wp8 <-  wesanderson::wes_palette("GrandBudapest", 8, type="continuous")
+wp82 <-  wesanderson::wes_palette("FantasticFox", 8, type="continuous")
+wp5 <-  wesanderson::wes_palette("Moonrise2", 5, type="continuous")
+wp7 <-  wesanderson::wes_palette("Darjeeling2",7, type="continuous")
+limits <- aes(ymax = mean + se, ymin=mean - se)
+dodge <- position_dodge(width=0.9)
+```
+
+```{r, echo=FALSE}
+#Clean Up The Data
+#Step One: Remove Single Music Observation
+HPA <- HPA[HPA$type!="music",]
+HPA <- HPA[HPA$type!="note",]
+
+#Deletes the 6 Milestones of the HPA.
+HPA$datetime <- as.POSIXct(HPA$datetime, tz="America/New_York")
+HPA <- with(HPA, subset(HPA, HPA$datetime > as.POSIXct('2010-03-03 00:00:00'))) 
+#Step Two: Remove Outlier From Dataset
+#Display the most liked post.
+#HPA <- HPA[order(-HPA$likes_count),]
+#HPA[which.max(HPA$likes_count), ]
+#Remove This Observation, I think it's throwing everything off.
+HPA <- HPA[-(which.max(HPA$likes_count)),]
+```
+
+```{r, echo=FALSE}
+HPA2016 <- HPA[HPA$year==2016,]
+#ignore alan rickman's death and david bowie's death
+HPA2016 <- HPA2016[-(which.max(HPA2016$likes_count)),]
+HPA2016 <- HPA2016[-(which.max(HPA2016$likes_count)),]
+
+
+aggTotals_hours <- ddply(HPA, "hourofday", summarise,
+                        N    = sum(!is.na(likes_count)),
+                        mean = mean(likes_count, na.rm=TRUE),
+                        sd   = sd(likes_count, na.rm=TRUE),
+                        se   = sd / sqrt(N))
+
+aggTotals_sharehours <- ddply(HPA, "hourofday", summarise,
+                         N    = sum(!is.na(shares_count)),
+                         mean = mean(shares_count, na.rm=TRUE),
+                         sd   = sd(shares_count, na.rm=TRUE),
+                         se   = sd / sqrt(N))
+
+aggTotals_days <- ddply(HPA, "dayofweek", summarise,
+               N    = sum(!is.na(likes_count)),
+               mean = mean(likes_count, na.rm=TRUE),
+               sd   = sd(likes_count, na.rm=TRUE),
+               se   = sd / sqrt(N))
+
+aggTotals_type <- ddply(HPA, "type", summarise,
+               N    = sum(!is.na(likes_count)),
+               mean = mean(likes_count, na.rm=TRUE),
+               sd   = sd(likes_count, na.rm=TRUE),
+               se   = sd / sqrt(N))
+
+aggTotals2016_hours <- ddply(HPA2016, "hourofday", summarise,
+                        N    = sum(!is.na(likes_count)),
+                        mean = mean(likes_count, na.rm=TRUE),
+                        sd   = sd(likes_count, na.rm=TRUE),
+                        se   = sd / sqrt(N))
+
+aggTotals2016_hours_shares <- ddply(HPA2016, "hourofday", summarise,
+                        N    = sum(!is.na(shares_count)),
+                        mean = mean(shares_count, na.rm=TRUE),
+                        sd   = sd(shares_count, na.rm=TRUE),
+                        se   = sd / sqrt(N))
+
+aggTotals2016_days <- ddply(HPA2016, "dayofweek", summarise,
+               N    = sum(!is.na(likes_count)),
+               mean = mean(likes_count, na.rm=TRUE),
+               sd   = sd(likes_count, na.rm=TRUE),
+               se   = sd / sqrt(N))
+
+aggTotals2016_type <- ddply(HPA2016, "type", summarise,
+               N    = sum(!is.na(likes_count)),
+               mean = mean(likes_count, na.rm=TRUE),
+               sd   = sd(likes_count, na.rm=TRUE),
+               se   = sd / sqrt(N))
+
+aggTotals2016_fh  <- ddply(HPA2016, "fourhour", summarise,
+               N    = sum(!is.na(likes_count)),
+               mean = mean(likes_count, na.rm=TRUE),
+               sd   = sd(likes_count, na.rm=TRUE),
+               se   = sd / sqrt(N))
+
+
+aggTotals_days$dayofweek <- factor(aggTotals_days$dayofweek, levels=c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
+
+aggTotals2016_days$dayofweek <- factor(aggTotals2016_days$dayofweek, levels=c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
+
+HPA2016$fourhour <- factor(HPA2016$fourhour, levels=c("12AM to 3AM", "4AM to 7AM", "8AM to 11AM", "12PM to 3PM", "4PM to 7PM", "8PM to 11PM"))
+
+aggTotals2016_fh$fourhour <- factor(aggTotals2016_fh$fourhour, levels=c("12AM to 3AM", "4AM to 7AM", "8AM to 11AM", "12PM to 3PM", "4PM to 7PM", "8PM to 11PM"))
+
+df.list <- lapply(c("likes", "comments", "shares"), aggregate.metric)
+df <- do.call(rbind, df.list)
+df_likes <- df[df$metric=="likes",]
+
+HPA <- HPA[order(HPA$datetime),]
+HPA$year <- as.factor(HPA$year)
+HPA$type <- as.factor(HPA$type)
+
+HPA2016$hourofday <- as.factor(HPA2016$hourofday)
+```
+#Facebook Report
+Hello! So, this report is looking at the lifespan of The Harry Potter Alliance's Facebook page. Overall, this report begins its journey April 8th, 2010, and goes until March 22nd, 2017. We have a total of 3,939 posts in this timeframe. 
+
+The first image below shows that we have been less active in recent years compared to 2014/2015. This is a big problem we need to control for - years when we would get 1,000s of likes per post may be a significantly different population then years now, where now a good post brings in maybe 100 likes. So, you may want to take the first analysis with a grain of salt.
+
+It might be useful for us to also consider, well, what types of things are we posting? And, well, it's good to see that when we realized that image-based posts were popular, we have been pretty consistent since about 2013 on our distribution of posts.
+
+```{r, echo=FALSE}
+yearplot <- ggplot(data=HPA, aes(HPA$year))
+yearplot2 <- yearplot +
+  geom_bar(fill=wp8)+
+  xlab("Year")+
+  ylab("Number of Posts")+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r, echo=FALSE, warning = FALSE}
+yeartypeplot <- ggplot(data=HPA, aes(HPA$year, fill=type))
+yeartypeplot2 <- yeartypeplot +
+  geom_bar(position="fill")+
+  xlab("Year")+
+  ylab("Proportion of Posts")+
+  scale_fill_manual(values = wp82)+
+  theme(legend.position="bottom")+
+  guides(fill=guide_legend(nrow=2,byrow=TRUE))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+cowplot::plot_grid(yearplot2, yeartypeplot2, align = "h", ncol = 2, rel_heights = c(1/2, 1/2))
+```
+
+So, how has our engagement looked? If we look at averages per month, we've definitely dropped off since the good old days. But I think that's okay. 2016 definitely had a strong showing, so we still have a chance to keep people engaged!
+
+```{r, echo=FALSE}
+#First Visualization: How has the Facebook page changed over months?
+ggplot(df, aes(x = month, y = x, group = metric)) +
+  geom_line(aes(color = metric)) +
+  scale_x_date(date_breaks = "years", labels = date_format("%Y")) +
+  #scale_y_log10("Average count per post") +
+  xlab("Months") +
+  ylab("Likes")+
+  scale_fill_manual(values = wp3)
+
+```
+
+```{r, echo=FALSE, include=FALSE}
+HPA$hourday <- as.factor(HPA$hourofday)
+summary(lm(likes_count ~ hourday, data=HPA))
+```
+
+But, perhaps more important, are there any benefits to posting at certain times of the day? Well, if we measure this in terms of "Likes", then the answer is not really. The only statistically significant effect  (p<.004) is a bonus at posting at 7 in the morning EST (On average, 805 more likes) - quite a lot! We also see some trending effects, and a significant effect (p<.014) where posting at 10pm EST causes us about a 362 like drop, compared to posting at midnight. Shares we see a slightly different trend, where we have a lot of significant results, but all it shows is that posts around midnight get shared the most. 
+
+```{r, echo=FALSE}
+#Time Chart
+g <- ggplot(aggTotals_hours, aes(y=mean, x=hourofday))
+plot_time<- g +
+  geom_line(colour="#ae0001") + 
+  geom_point(alpha=.75, colour="#740001")+
+  geom_smooth(method="loess", se=FALSE, linetype=2, lwd=.5, colour="#d3a625")+
+  labs(x="Hours in EST", y="Average Likes Per Post", title="HPA Facebook Posts Average Likes by Time of Posting")+
+  scale_x_continuous(breaks=c(0,6,12,18,23), labels=c("Midnight","6AM","Noon","6PM","11PM")) +
+  theme(plot.title = element_text(hjust = 0.5))
+
+```
+```{r, echo=FALSE}
+g <- ggplot(aggTotals_sharehours, aes(y=mean, x=hourofday))
+plot_share_time<- g +
+  geom_line(colour="#ae0001") + 
+  geom_point(alpha=.75, colour="#740001")+
+  geom_smooth(method="loess", se=FALSE, linetype=2, lwd=.5, colour="#d3a625")+
+  labs(x="Hours in EST", y="Average Shares Per Post", title="HPA Facebook Posts Average Shares by Time of Posting")+
+  scale_x_continuous(breaks=c(0,6,12,18,23), labels=c("Midnight","6AM","Noon","6PM","11PM")) +
+  theme(plot.title = element_text(hjust = 0.5))
+
+cowplot::plot_grid(plot_time, plot_share_time, align = "v", nrow = 2, rel_heights = c(1/2, 1/2))
+
+```
+
+So, what about days? Well, really, there isn't any large significant differences here either. There's a trending effect that Monday is outpreforming our base group (Sunday), p<.06; Beta=113.07), but otherwise, it's pretty even. And, of course, it's nice to see that indeed, pictures are a good use of our time! People significantly like posts with pictures (p<.003, beta=497.31) more than they like other types of postings.
+
+```{r, echo=FALSE}
+#Day Chart
+gd <- ggplot(aggTotals_days, aes(y=mean, x=dayofweek, fill=dayofweek))
+plot_day<- gd +
+  geom_bar(stat="identity", colour="#000000", position=dodge) + 
+  geom_errorbar(limits, position=dodge, width=0.25)+
+  labs(x="Hours in EST", y="Average Likes Per Post", title="")+
+  scale_fill_manual(values=wp7, name="Days")+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+ theme(legend.position="none")
+
+```
+
+```{r, echo=FALSE}
+gd <- ggplot(aggTotals_type, aes(y=mean, x=type, fill=type))
+plot_type<- gd +
+  geom_bar(stat="identity", colour="#000000", position=dodge) + 
+  geom_errorbar(limits, position=dodge, width=0.25)+
+  labs(x="Hours in EST", y="Average Likes Per Post", title="")+
+  scale_fill_manual(values=wp5, name="Type")+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  theme(legend.position="none")
+cowplot::plot_grid(plot_day, plot_type, align = "h", ncol = 2, rel_heights = c(1/2, 1/2))
+
+```
+
+So, maybe we should recognize the difference in popularity in the HPA. 
+There's definitely a different population of people that engage compared to the past. So, what if we just look at 2016. Do we see differences from above? 
+
+For one, I removed the two posts that dealt with the deaths of Alan Rickman and David Bowie, as they were huge outliers in the data of 2016. (But, good to know, deaths do seem to really bring out our fans... sad.) 
+
+So, in general, we do, but it's not something we can really learn from. The large standard errors just mean that we probably had a couple of posts that went pretty big and a lot of posts that were pretty average. So, it's relatively meaningless for what day to post.  Time wise, there is a trending effect for a bonus at posting at 11pm, but I can't be sure it's just not another outlier or two.  
+
+What is interesting, if there's anything to gain from here, is that links did pretty good in 2016! Photos are still outpreforming them, but it doesn't seem as necessary to post a photo as long as you have a link. Which makes sense, as Facebook auto-generates a photo from a posted link, doesn't it? 
+
+```{r, echo=FALSE}
+#Time Chart
+g <- ggplot(aggTotals2016_hours, aes(y=mean, x=hourofday))
+plot_time2016<- g +
+  geom_line(colour="#ae0001") + 
+  geom_point(alpha=.75, colour="#740001")+
+  geom_smooth(method="loess", se=FALSE, linetype=2, lwd=.5, colour="#d3a625")+
+  labs(x="Hours in EST", y="Average Likes Per Post", title="HPA Facebook Posts Average Likes by Time of Posting")+
+  scale_x_continuous(breaks=c(0,6,12,18,23), labels=c("Midnight","6AM","Noon","6PM","11PM")) +
+  theme(plot.title = element_text(hjust = 0.5))
+
+```
+```{r, echo=FALSE}
+g <- ggplot(aggTotals2016_hours_shares, aes(y=mean, x=hourofday))
+plot_share_time2016<- g +
+  geom_line(colour="#ae0001") + 
+  geom_point(alpha=.75, colour="#740001")+
+  geom_smooth(method="loess", se=FALSE, linetype=2, lwd=.5, colour="#d3a625")+
+  labs(x="Hours in EST", y="Average Shares Per Post", title="HPA Facebook Posts Average Shares by Time of Posting")+
+  scale_x_continuous(breaks=c(0,6,12,18,23), labels=c("Midnight","6AM","Noon","6PM","11PM")) +
+  theme(plot.title = element_text(hjust = 0.5))
+
+cowplot::plot_grid(plot_time2016, plot_share_time2016, align = "v", nrow = 2, rel_heights = c(1/2, 1/2))
+```
+```{r, echo=FALSE}
+#Day Chart
+gd <- ggplot(aggTotals2016_days, aes(y=mean, x=dayofweek, fill=dayofweek))
+plot_day<- gd +
+  geom_bar(stat="identity", colour="#000000", position=dodge) + 
+  geom_errorbar(limits, position=dodge, width=0.25)+
+  labs(x="Hours in EST", y="Average Likes Per Post", title="")+
+  scale_fill_manual(values=wp7, name="Days")+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+ theme(legend.position="none")
+
+```
+
+```{r, echo=FALSE}
+gd <- ggplot(aggTotals2016_type, aes(y=mean, x=type, fill=type))
+plot_type<- gd +
+  geom_bar(stat="identity", colour="#000000", position=dodge) + 
+  geom_errorbar(limits, position=dodge, width=0.25)+
+  labs(x="Hours in EST", y="Average Likes Per Post", title="")+
+  scale_fill_manual(values=wp5, name="Type")+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  theme(legend.position="none")
+cowplot::plot_grid(plot_day, plot_type, align = "h", ncol = 2, rel_heights = c(1/2, 1/2))
+```
+
+```{r, echo=FALSE}
+fh <- ggplot(aggTotals2016_fh, aes(y=mean, x=fourhour, fill=fourhour))
+plot_fh<- fh +
+  geom_bar(stat="identity", colour="#000000", position=dodge) + 
+  geom_errorbar(limits, position=dodge, width=0.25)+
+  labs(x="Hours in EST", y="Average Likes Per Post", title="")+
+  scale_fill_manual(values=wp7, name="Days")+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+ theme(legend.position="none")
+plot_fh
+```
