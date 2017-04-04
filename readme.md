@@ -3,6 +3,8 @@ Facebook Report
 
 Hello! So, this report is looking at the lifespan of The Harry Potter Alliance's Facebook page. Overall, this report begins its journey April 8th, 2010, and goes until March 22nd, 2017. We have a total of 3,939 posts in this timeframe.
 
+(For those interested in re-running this analysis, you need to first refer to hpa_gatherdata.R).
+
 The first image below shows that we have been less active in recent years compared to 2014/2015. This is a big problem we need to control for - years when we would get 1,000s of likes per post may be a significantly different population then years now, where now a good post brings in maybe 100 likes. So, you may want to take the first analysis with a grain of salt.
 
 It might be useful for us to also consider, well, what types of things are we posting? And, well, it's good to see that when we realized that image-based posts were popular, we have been pretty consistent since about 2013 on our distribution of posts.
