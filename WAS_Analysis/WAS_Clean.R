@@ -202,27 +202,27 @@ data$listen_wrock <- characterclean_four(data$listen_wrock, "Yes I do", "No I do
 
 data$length_active_hpa <- as.numeric(levels(data$active_hpa))[data$active_hpa]
 
-data$hpa_fandom_events_1 <- characterclean_ones(data$hpa_fandom_events_1, "Granger Leadership Academy")
-data$hpa_fandom_events_2 <- characterclean_ones(data$hpa_fandom_events_2, "LeakyCon")
-data$hpa_fandom_events_3 <- characterclean_ones(data$hpa_fandom_events_3, "GeekyCon")
-data$hpa_fandom_events_4 <- characterclean_ones(data$hpa_fandom_events_4, "HPEF")
-data$hpa_fandom_events_5 <- characterclean_ones(data$hpa_fandom_events_5, "Terminus")
-data$hpa_fandom_events_6 <- characterclean_ones(data$hpa_fandom_events_6, "BroadwayCon")
-data$hpa_fandom_events_7 <- characterclean_ones(data$hpa_fandom_events_7, "VidCon")
-data$hpa_fandom_events_8 <- characterclean_ones(data$hpa_fandom_events_8, "NerdCon: Stories")
-data$hpa_fandom_events_9 <- characterclean_ones(data$hpa_fandom_events_9, "NerdCon: Nerdfighteria")
-data$hpa_fandom_events_10 <- characterclean_ones(data$hpa_fandom_events_10, "The Yule Ball")
-data$hpa_fandom_events_11 <- characterclean_ones(data$hpa_fandom_events_11, "The Quidditch World Cup")
-data$hpa_fandom_events_12 <- characterclean_ones(data$hpa_fandom_events_12, "MISTI Con")
-data$hpa_fandom_events_13 <- characterclean_ones(data$hpa_fandom_events_13, "NYCC")
-data$hpa_fandom_events_14 <- characterclean_ones(data$hpa_fandom_events_14, "SDCC")
-data$hpa_fandom_events_15 <- characterclean_ones(data$hpa_fandom_events_15, "Geek Girl Con")
-data$hpa_fandom_events_16 <- characterclean_ones(data$hpa_fandom_events_16, "Fill in 1")
-data$hpa_fandom_events_17 <- characterclean_ones(data$hpa_fandom_events_17, "Fill in 2")
-data$hpa_fandom_events_18 <- characterclean_ones(data$hpa_fandom_events_18, "Fill in 3")
-data$hpa_fandom_events_19 <- characterclean_ones(data$hpa_fandom_events_19, "Fill in 4")
-data$hpa_fandom_events_20 <- characterclean_ones(data$hpa_fandom_events_20, "Fill in 5")
-data$hpa_fandom_events_21 <- characterclean_ones(data$hpa_fandom_events_21, "Never Attended")
+data$fandom_events_1 <- characterclean_ones(data$fandom_events_1, "Granger Leadership Academy")
+data$fandom_events_2 <- characterclean_ones(data$fandom_events_2, "LeakyCon")
+data$fandom_events_3 <- characterclean_ones(data$fandom_events_3, "GeekyCon")
+data$fandom_events_4 <- characterclean_ones(data$fandom_events_4, "HPEF")
+data$fandom_events_5 <- characterclean_ones(data$fandom_events_5, "Terminus")
+data$fandom_events_6 <- characterclean_ones(data$fandom_events_6, "BroadwayCon")
+data$fandom_events_7 <- characterclean_ones(data$fandom_events_7, "VidCon")
+data$fandom_events_8 <- characterclean_ones(data$fandom_events_8, "NerdCon: Stories")
+data$fandom_events_9 <- characterclean_ones(data$fandom_events_9, "NerdCon: Nerdfighteria")
+data$fandom_events_10 <- characterclean_ones(data$fandom_events_10, "The Yule Ball")
+data$fandom_events_11 <- characterclean_ones(data$fandom_events_11, "The Quidditch World Cup")
+data$fandom_events_12 <- characterclean_ones(data$fandom_events_12, "MISTI Con")
+data$fandom_events_13 <- characterclean_ones(data$fandom_events_13, "NYCC")
+data$fandom_events_14 <- characterclean_ones(data$fandom_events_14, "SDCC")
+data$fandom_events_15 <- characterclean_ones(data$fandom_events_15, "Geek Girl Con")
+data$fandom_events_16 <- characterclean_ones(data$fandom_events_16, "Fill in 1")
+data$fandom_events_17 <- characterclean_ones(data$fandom_events_17, "Fill in 2")
+data$fandom_events_18 <- characterclean_ones(data$fandom_events_18, "Fill in 3")
+data$fandom_events_19 <- characterclean_ones(data$fandom_events_19, "Fill in 4")
+data$fandom_events_20 <- characterclean_ones(data$fandom_events_20, "Fill in 5")
+data$fandom_events_21 <- characterclean_ones(data$fandom_events_21, "Never Attended")
 
 data$fandom_fav_event <- as.numeric(levels(data$fandom_fav_event))[data$fandom_fav_event]
 data$fandom_fav_event <- as.character(data$fandom_fav_event)
@@ -240,17 +240,17 @@ data$neverattended_3 <- characterclean_ones(data$neverattended_3, "Travel Plans 
 data$neverattended_4 <- characterclean_ones(data$neverattended_4, "Did Not Know Events Exist")
 data$neverattended_5 <- characterclean_ones(data$neverattended_5, "See Text - Other")
 
-data$chaptermember_1 <- characterclean_ones(data$chaptermember_1,"Yes, as member")
-data$chaptermember_2 <- characterclean_ones(data$chaptermember_2,"Yes, as CO")
-data$chaptermember_3 <- characterclean_ones(data$chaptermember_3,"No, but I used to be")
-data$chaptermember_4 <- characterclean_ones(data$chaptermember_4,"No")
-data$chaptermember_5 <- characterclean_ones(data$chaptermember_5,"What's a chapter?")
+data$chapters_1 <- characterclean_ones(data$chapters_1,"Yes, as member")
+data$chapters_2 <- characterclean_ones(data$chapters_2,"Yes, as CO")
+data$chapters_3 <- characterclean_ones(data$chapters_3,"No, but I used to be")
+data$chapters_4 <- characterclean_ones(data$chapters_4,"No")
+data$chapters_5 <- characterclean_ones(data$chapters_5,"What's a chapter?")
 
-data$chaptermember <- 0
-data$chaptermember[data$chaptermember_1=="Yes, as member"] <- 1
-data$chaptermember[data$chaptermember_2=="Yes, as CO"] <- 1
-data$chaptermember <- as.factor(data$chaptermember)
-data$chaptermember <- factor(data$chaptermember, levels = c(0,1), labels = c("No", "Yes"))
+data$chapters <- 0
+data$chapters[data$chapters_1=="Yes, as member"] <- 1
+data$chapters[data$chapters_2=="Yes, as CO"] <- 1
+data$chapters <- as.factor(data$chapters)
+data$chapters <- factor(data$chapters, levels = c(0,1), labels = c("No", "Yes"))
 
 data$volunteerstaff_1 <- characterclean_ones(data$volunteerstaff_1, "Yes")
 data$volunteerstaff_2 <- characterclean_ones(data$volunteerstaff_2, "No but interested")
@@ -270,7 +270,6 @@ data$consider_activist_3 <- characterclean_ones(data$consider_activist_3, "Other
 data$consider_activist <- 0
 data$consider_activist[data$consider_activist_1=="Yes"] <- 1
 data$consider_activist <- factor(data$consider_activist, levels = c(0,1), labels = c("No", "Yes"))
-
 
 data$consider_wactivist_1 <- characterclean_ones(data$consider_wactivist_1, "Yes")
 data$consider_wactivist_2 <- characterclean_ones(data$consider_wactivist_2, "No")
@@ -354,16 +353,16 @@ data$wactivist_s_madediff <- factor(data$wactivist_scale_16,
                                                "Agree",
                                                "Strongly Agree"))
 
-data$howgetinvolved_1 <- characterclean_ones(data$howgetinvolved_1, "Spread Word")
-data$howgetinvolved_2 <- characterclean_ones(data$howgetinvolved_2, "Keep Up Online")
-data$howgetinvolved_3 <- characterclean_ones(data$howgetinvolved_3, "Participate Campaigns")
-data$howgetinvolved_4 <- characterclean_ones(data$howgetinvolved_4, "Buy HPA Merch")
-data$howgetinvolved_5 <- characterclean_ones(data$howgetinvolved_5, "Contribute HPA Fundraisers")
-data$howgetinvolved_6 <- characterclean_ones(data$howgetinvolved_6, "HPA Volunteer Staff")
-data$howgetinvolved_7 <- characterclean_ones(data$howgetinvolved_7, "HPA Chapter Member")
-data$howgetinvolved_8 <- characterclean_ones(data$howgetinvolved_8, "HPA Chapter CO")
-data$howgetinvolved_9 <- characterclean_ones(data$howgetinvolved_9, "GLA Attend")
-data$howgetinvolved_10 <- characterclean_ones(data$howgetinvolved_10, "Other")
+data$getinvolved_1 <- characterclean_ones(data$getinvolved_1, "Spread Word")
+data$getinvolved_2 <- characterclean_ones(data$getinvolved_2, "Keep Up Online")
+data$getinvolved_3 <- characterclean_ones(data$getinvolved_3, "Participate Campaigns")
+data$getinvolved_4 <- characterclean_ones(data$getinvolved_4, "Buy HPA Merch")
+data$getinvolved_5 <- characterclean_ones(data$getinvolved_5, "Contribute HPA Fundraisers")
+data$getinvolved_6 <- characterclean_ones(data$getinvolved_6, "HPA Volunteer Staff")
+data$getinvolved_7 <- characterclean_ones(data$getinvolved_7, "HPA Chapter Member")
+data$getinvolved_8 <- characterclean_ones(data$getinvolved_8, "HPA Chapter CO")
+data$getinvolved_9 <- characterclean_ones(data$getinvolved_9, "GLA Attend")
+data$getinvolved_10 <- characterclean_ones(data$getinvolved_10, "Other")
 
 data$areas_of_activism_1 <- characterclean_ones(data$areas_of_activism_1, "Gender Equality")
 data$areas_of_activism_2 <- characterclean_ones(data$areas_of_activism_2, "Racial Equality")
@@ -456,7 +455,6 @@ data$leastfav_campaign <-  factor(data$leastfav_campaign,
                                         "What Would Dumbledore Do",  "Wizard Wrock the Vote", 
                                         "Wrock for Equality 2009", "Wrock for Equality 2011", 
                                         "Chapter Event 1", "Chapter Event 2" ))
-
 
 data$hpa_rating_1 <- as.numeric(levels(data$hpa_rating_1))[data$hpa_rating_1]
 
