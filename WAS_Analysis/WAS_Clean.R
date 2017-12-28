@@ -1001,4 +1001,94 @@ data$what_stoppeddonate_5 <- characterclean_ones(data$what_stoppeddonate_5, "Not
 data$what_stoppeddonate_6 <- characterclean_ones(data$what_stoppeddonate_6, "Thought donation better used elsewhere")
 data$what_stoppeddonate_7 <- characterclean_ones(data$what_stoppeddonate_7, "Other")
 
+names(data)[names(data) == 'activism_rank_x1'] <- 'GenderEqualityRank'
+names(data)[names(data) == 'activism_rank_x2'] <- 'RacialEqualityRank'
+names(data)[names(data) == 'activism_rank_x3'] <- 'ReligiousEqualityRank'
+names(data)[names(data) == 'activism_rank_x4'] <- 'EnvironmentalRank'
+names(data)[names(data) == 'activism_rank_x5'] <- 'CleanEnergyRank'
+names(data)[names(data) == 'activism_rank_x6'] <- 'NetNeutralityRank'
+names(data)[names(data) == 'activism_rank_x7'] <- 'MediaReformRank'
+names(data)[names(data) == 'activism_rank_x8'] <- 'FairTradeRank'
+names(data)[names(data) == 'activism_rank_x9'] <- 'EducationRank'
+names(data)[names(data) == 'activism_rank_x10'] <- 'LibraryAdvocacyRank'
+names(data)[names(data) == 'activism_rank_x11'] <- 'LGBTQIARank'
+names(data)[names(data) == 'activism_rank_x12'] <- 'FillInRank'
+names(data)[names(data) == 'activism_rank_x13'] <- 'FillIn2Rank'
+names(data)[names(data) == 'activism_rank_x14'] <- 'FillIn3Rank'
+
+data$topissue[data$GenderEqualityRank==1] <- "Gender Equality"
+data$topissue[data$RacialEqualityRank==1] <- "Racial Equality"
+data$topissue[data$ReligiousEqualityRank==1] <- "Religious Equality"
+data$topissue[data$EnvironmentalRank==1] <- "Environmental"
+data$topissue[data$CleanEnergyRank==1] <- "Clean Energy"
+data$topissue[data$NetNeutralityRank==1] <- "Net Neutrality"
+data$topissue[data$MediaReformRank==1] <- "Media Reform"
+data$topissue[data$FairTradeRank==1] <- "Fair Trade"
+data$topissue[data$EducationRank==1] <- "Education"
+data$topissue[data$LibraryAdvocacyRank==1] <- "Library Advocacy"
+data$topissue[data$LGBTQIARank==1] <- "LGBTQIA"
+data$topissue[data$FillInRank==1] <- "Fill In 1"
+data$topissue[data$Fill2InRank==1] <- "Fill in 2"
+data$topissue[data$Fill3InRank==1] <- "Fill in 3"
+
+data$secondissue[data$GenderEqualityRank==2] <- "Gender Equality"
+data$secondissue[data$RacialEqualityRank==2] <- "Racial Equality"
+data$secondissue[data$ReligiousEqualityRank==2] <- "Religious Equality"
+data$secondissue[data$EnvironmentalRank==2] <- "Environmental"
+data$secondissue[data$CleanEnergyRank==2] <- "Clean Energy"
+data$secondissue[data$NetNeutralityRank==2] <- "Net Neutrality"
+data$secondissue[data$MediaReformRank==2] <- "Media Reform"
+data$secondissue[data$FairTradeRank==2] <- "Fair Trade"
+data$secondissue[data$EducationRank==2] <- "Education"
+data$secondissue[data$LibraryAdvocacyRank==2] <- "Library Advocacy"
+data$secondissue[data$LGBTQIARank==2] <- "LGBTQIA"
+data$secondissue[data$FillInRank==2] <- "Fill In 1"
+data$secondissue[data$Fill2InRank==2] <- "Fill in 2"
+data$secondissue[data$Fill3InRank==2] <- "Fill in 3"
+
+data$thirdissue[data$GenderEqualityRank==3] <- "Gender Equality"
+data$thirdissue[data$RacialEqualityRank==3] <- "Racial Equality"
+data$thirdissue[data$ReligiousEqualityRank==3] <- "Religious Equality"
+data$thirdissue[data$EnvironmentalRank==3] <- "Environmental"
+data$thirdissue[data$CleanEnergyRank==3] <- "Clean Energy"
+data$thirdissue[data$NetNeutralityRank==3] <- "Net Neutrality"
+data$thirdissue[data$MediaReformRank==3] <- "Media Reform"
+data$thirdissue[data$FairTradeRank==3] <- "Fair Trade"
+data$thirdissue[data$EducationRank==3] <- "Education"
+data$thirdissue[data$LibraryAdvocacyRank==3] <- "Library Advocacy"
+data$thirdissue[data$LGBTQIARank==3] <- "LGBTQIA"
+data$thirdissue[data$FillInRank==3] <- "Fill In 1"
+data$thirdissue[data$Fill2InRank==3] <- "Fill in 2"
+data$thirdissue[data$Fill3InRank==3] <- "Fill in 3"
+
+data$fourthissue[data$GenderEqualityRank==4] <- "Gender Equality"
+data$fourthissue[data$RacialEqualityRank==4] <- "Racial Equality"
+data$fourthissue[data$ReligiousEqualityRank==4] <- "Religious Equality"
+data$fourthissue[data$EnvironmentalRank==4] <- "Environmental"
+data$fourthissue[data$CleanEnergyRank==4] <- "Clean Energy"
+data$fourthissue[data$NetNeutralityRank==4] <- "Net Neutrality"
+data$fourthissue[data$MediaReformRank==4] <- "Media Reform"
+data$fourthissue[data$FairTradeRank==4] <- "Fair Trade"
+data$fourthissue[data$EducationRank==4] <- "Education"
+data$fourthissue[data$LibraryAdvocacyRank==4] <- "Library Advocacy"
+data$fourthissue[data$LGBTQIARank==4] <- "LGBTQIA"
+data$fourthissue[data$FillInRank==4] <- "Fill In 1"
+data$fourthissue[data$Fill2InRank==4] <- "Fill in 2"
+data$fourthissue[data$Fill3InRank==4] <- "Fill in 3"
+
+data$fifthissue[data$GenderEqualityRank==5] <- "Gender Equality"
+data$fifthissue[data$RacialEqualityRank==5] <- "Racial Equality"
+data$fifthissue[data$ReligiousEqualityRank==5] <- "Religious Equality"
+data$fifthissue[data$EnvironmentalRank==5] <- "Environmental"
+data$fifthissue[data$CleanEnergyRank==5] <- "Clean Energy"
+data$fifthissue[data$NetNeutralityRank==5] <- "Net Neutrality"
+data$fifthissue[data$MediaReformRank==5] <- "Media Reform"
+data$fifthissue[data$FairTradeRank==5] <- "Fair Trade"
+data$fifthissue[data$EducationRank==5] <- "Education"
+data$fifthissue[data$LibraryAdvocacyRank==5] <- "Library Advocacy"
+data$fifthissue[data$LGBTQIARank==5] <- "LGBTQIA"
+data$fifthissue[data$FillInRank==5] <- "Fill In 1"
+data$fifthissue[data$Fill2InRank==5] <- "Fill in 2"
+data$fifthissue[data$Fill3InRank==5] <- "Fill in 3"
+
 write.csv(data, "data/CleanedWAS2017.csv")
