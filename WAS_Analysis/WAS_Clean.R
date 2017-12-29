@@ -741,6 +741,7 @@ data$consider_wactivist_4 <- characterclean_ones(data$consider_wactivist_4, "Oth
 
 data$consider_wactivist <- 0
 data$consider_wactivist[data$consider_wactivist_1=="Yes"] <- 1
+data$consider_wactivist[data$consider_wactivist_1=="Other"] <- 1
 data$consider_wactivist <- factor(data$consider_wactivist, levels = c(0,1), labels = c("No", "Yes"))
 
 #Comfortable Being Activist
@@ -827,6 +828,12 @@ data$wactivist_s_madediff <- factor(data$wactivist_scale_16,
                                                "Somewhat Agree",
                                                "Agree",
                                                "Strongly Agree"))
+
+data <- data[ , !names(data) %in% c("wactivist_scale_1", "wactivist_scale_2",
+                                    "wactivist_scale_3", "wactivist_scale_4",
+                                    "wactivist_scale_4", "wactivist_scale_15",
+                                    "wactivist_scale_16", "wactivist_scale_17"
+                                    )]
 
 data$getinvolved_1 <- characterclean_ones(data$getinvolved_1, "Spread Word")
 data$getinvolved_2 <- characterclean_ones(data$getinvolved_2, "Keep Up Online")
